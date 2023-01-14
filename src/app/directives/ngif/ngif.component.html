@@ -1,0 +1,11 @@
+<div class="card">
+  <div class="card-header">Directiva Ng-If</div>
+  <div class="card-body">
+    <button class="btn btn-primary" (click)="hide()">
+      {{ flag ? 'Ocultar' : 'Mostrar' }}
+    </button>
+    <p class="texto">
+      <span *ngIf="flag">flag = true</span><span *ngIf="!flag">flag = false</span>
+    </p>
+  </div>
+</div>
