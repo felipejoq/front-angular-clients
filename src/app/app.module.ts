@@ -6,8 +6,16 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from './footer/footer.component';
 import { NgforComponent } from './directives/ngfor/ngfor.component';
 import { NgifComponent } from './directives/ngif/ngif.component';
-import { ClientesComponent } from './main/clients/clientes.component';
+import { ClientsComponent } from './main/clients/clients.component';
 import {ClienteService} from "./main/clients/services/cliente.service";
+import {RouterModule, Routes} from "@angular/router";
+
+const routes: Routes = [
+  { path: '', redirectTo: '/clients', pathMatch: 'full'},
+  { path: 'clients', component: ClientsComponent},
+  { path: 'ngif', component: NgifComponent },
+  { path: 'ngfor', component: NgforComponent },
+]
 
 @NgModule({
   declarations: [
@@ -16,10 +24,11 @@ import {ClienteService} from "./main/clients/services/cliente.service";
     FooterComponent,
     NgforComponent,
     NgifComponent,
-    ClientesComponent
+    ClientsComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RouterModule.forRoot(routes),
   ],
   providers: [ClienteService],
   bootstrap: [AppComponent]

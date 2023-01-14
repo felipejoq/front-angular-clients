@@ -4,17 +4,17 @@ import {ClienteService} from "./services/cliente.service";
 
 @Component({
   selector: 'app-clients',
-  templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.css'],
+  templateUrl: './clients.component.html',
+  styleUrls: ['./clients.component.css'],
 })
-export class ClientesComponent {
+export class ClientsComponent {
 
   clients: Client[] | undefined;
 
   constructor(private readonly clientService: ClienteService) {}
 
   ngOnInit() {
-    this.clients = this.clientService.getClients();
+    this.clientService.getClients().subscribe(clientes => this.clients = clientes);
   }
 
 }
