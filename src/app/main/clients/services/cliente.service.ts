@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Client } from '../classes/Client';
-import { CLIENTES } from '../data/client.interface';
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClienteService {
-
-  constructor() { }
+  private urlDefault: string = `http://localhost:8080/api`;
+  constructor(private readonly http: HttpClient) { }
 
   getClients(): Observable<Client[]> {
-    return of(CLIENTES);
+    // return of(CLIENTES);
+    // return this.http.get(`${ this.urlDefault }/clients`)
+    //  .pipe(map( response => response as Client[]));
+    return this.http.get<Client[]>(`${ this.urlDefault }/clients`);
   }
 }
-
