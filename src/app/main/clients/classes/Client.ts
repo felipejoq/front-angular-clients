@@ -1,7 +1,8 @@
-export interface Client {
-  id: number;
-  name: string;
-  lastname: string;
-  email: string;
-  createAt: string;
+export class Client {
+  id: number | undefined;
+  name: string | undefined;
+  lastName: string | undefined;
+  email: string | undefined;
+  createAt: string | undefined;
+
 }

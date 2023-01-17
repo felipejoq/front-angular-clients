@@ -10,31 +10,31 @@ let date = new Date(Date.UTC(2023, 0, 14)).toLocaleDateString('es', {
 export const CLIENTES: Client[] = [
   {
     id: 1, name: 'Felipe',
-    lastname: 'Jofre',
+    lastName: 'Jofre',
     email: 'felipe@test.test',
     createAt: date,
   },  {
     id: 2,
     name: 'Andres',
-    lastname: 'Guzman',
+    lastName: 'Guzman',
     email: 'andres@test.test',
     createAt: date,
   }, {
     id: 3,
     name: 'Lorena',
-    lastname: 'Ramirez',
+    lastName: 'Ramirez',
     email: 'lorena@test.test',
     createAt: date,
   }, {
     id: 4,
     name: 'Andrea',
-    lastname: 'Robles',
+    lastName: 'Robles',
     email: 'andrea@test.test',
     createAt: date,
   }, {
     id: 5,
     name: 'Hugo',
-    lastname: 'Jara',
+    lastName: 'Jara',
     email: 'hugo@test.test',
     createAt: date,
   },

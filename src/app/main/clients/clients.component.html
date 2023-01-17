@@ -1,28 +1,49 @@
-<div class="card border-primary mb-3">
+<div class="card mb-3">
   <div class="card-header">Clientes</div>
-  <div class="card-body">
-    <h5 class="card-title">Lista de clientes</h5>
-    <div class="card-body">
-      <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Email</th>
-          <th scope="col">Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let client of clients">
-          <th scope="row">{{ client.id }}</th>
-          <td>{{ client.name }}</td>
-          <td>{{ client.lastname }}</td>
-          <td>{{ client.email }}</td>
-          <td>{{ client.createAt }}</td>
-        </tr>
-        </tbody>
-      </table>
+
+  <div class="card-body d-flex align-items-center flex-column">
+
+    <div class="card-text align-self-start my-3">
+      <a class="btn btn-primary" aria-current="page" [routerLink]="['/clients/form']">
+        <i class="bi bi-plus-circle-fill"></i> Agregar
+      </a>
     </div>
+
+    <div class="alert alert-info w-50" role="alert" *ngIf="!clients || clients.length <= 0">
+      No hay registros de clientes para mostrar.
+    </div>
+    <table class="table table-striped table-hover table-bordered" *ngIf="!clients || clients.length >= 1">
+      <thead class="bg-dark text-white">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Email</th>
+        <th scope="col">Date</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let client of clients">
+        <th scope="row">{{ client.id }}</th>
+        <td>{{ client.name }}</td>
+        <td>{{ client.lastName }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.createAt }}</td>
+        <td>
+          <div class="btn-group">
+            <a title="Edit" class="btn btn-primary btn-sm" aria-current="page"
+               [routerLink]="['/clients/form', client.id]">
+              <i class="bi bi-pencil-square"></i>
+            </a>
+            <a title="Delete" (click)="delete(client)" class="btn btn-danger btn-sm" aria-current="page">
+              <i class="bi bi-trash"></i>
+            </a>
+          </div>
+
+        </td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 </div>
