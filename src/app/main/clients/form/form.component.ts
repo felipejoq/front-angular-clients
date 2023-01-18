@@ -18,7 +18,8 @@ export class FormComponent {
   constructor(
     private readonly clientService: ClienteService,
     private readonly router: Router,
-    private readonly activateRoute: ActivatedRoute) {}
+    private readonly activateRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
     this.loadClient();
@@ -26,29 +27,31 @@ export class FormComponent {
 
   createClient(): void {
     this.clientService.postClient(this.client)
-      .subscribe(resClient => {
-        this.router.navigate(['/clients']);
-        MODAL.swalClient(`Cliente ${ resClient.name } ${ resClient.lastName } creado con éxito!`, 'Nuevo Cliente', typeIcon.success);
-      });
+      .subscribe(resp => {
+        console.log(resp)
+          this.router.navigate(['/clients']);
+          MODAL.swalClient(`Cliente ${resp.client.name} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
+        });
   }
 
-  updateClient():void {
+  updateClient(): void {
     this.clientService.updateClient(this.client)
-      .subscribe( client => {
-        this.router.navigate(['/clients']);
-        MODAL.swalClient(`Cliente ${ client.name } ${ client.lastName } actualizado con éxito!`, 'Cliente Actualizado', typeIcon.success);
-      })
+      .subscribe(
+        resp => {
+          this.router.navigate(['/clients'])
+          MODAL.swalClient(`Cliente ${resp.client.name} actualizado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
+        })
   }
 
   loadClient(): void {
     this.activateRoute.params.subscribe(params => {
-      const { id } = params;
-      console.log(params)
+      const {id} = params;
+
       if (id) {
         this.clientService.getClient(id)
-          .subscribe( client => this.client = client);
+          .subscribe(client => this.client = client);
       }
-    })
+    });
   }
 
 }

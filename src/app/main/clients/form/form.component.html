@@ -1,34 +1,87 @@
 <div class="d-flex justify-content-center">
   <div class="card text-bg-light mb-3 w-50">
-    <div class="card-header">{{ tituloForm }}</div>
+    <div class="card-header"><i class="bi bi-info-square-fill"></i> {{ tituloForm }}</div>
     <div class="card-body">
       <div class="card-body">
-      <!-- <h5 class="card-title">Formulario para añadir o editar clientes.</h5> -->
-        <form (keydown.enter)="$event.preventDefault()">
+        <!-- <h5 class="card-title">Formulario para añadir o editar clientes.</h5> -->
+        <form (keydown.enter)="$event.preventDefault()" #clientForm="ngForm">
           <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
-            <input type="text" class="form-control" name="name" id="name" [(ngModel)]="client.name" aria-describedby="emailHelp">
-            <div id="nameHelp" class="form-text">Ingrese un nombre.</div>
+            <label for="name" class="form-label"><i class="bi bi-person-fill"></i> Name</label>
+            <input
+              type="text"
+              class="form-control"
+              name="name"
+              id="name"
+              [(ngModel)]="client.name"
+              aria-describedby="emailHelp"
+              required
+              minlength="3"
+              maxlength="255"
+              #name="ngModel"
+            >
+            <div id="nameHelp" class="form-text text-danger"
+                 *ngIf="name.invalid && (name.dirty || name.touched)">
+
+              <div *ngIf="name.errors?.['required']" class="">El nombre es obligatorio.</div>
+              <div *ngIf="name.errors?.['minlength']" class="">El nombre debe tener mínimo 3 carácteres.</div>
+              <div *ngIf="name.errors?.['maxlength']" class="">El nombre debe tener máximo 255 carácteres.</div>
+
+            </div>
           </div>
 
           <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" name="lastName" class="form-control" id="lastName" [(ngModel)]="client.lastName">
-            <div id="lastNameHelp" class="form-text">Ingrese un apellido.</div>
+            <label for="lastName" class="form-label"><i class="bi bi-person-fill-add"></i> Last Name</label>
+            <input
+              type="text"
+              name="lastName"
+              class="form-control"
+              id="lastName"
+              [(ngModel)]="client.lastName"
+              required
+              minlength="3"
+              maxlength="255"
+              #lastname="ngModel"
+            >
+            <div id="lastnameHelp" class="form-text text-danger"
+                 *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+
+              <div *ngIf="lastname.errors?.['required']" class="">El apellido es obligatorio.</div>
+              <div *ngIf="lastname.errors?.['minlength']" class="">El apellido debe tener mínimo 3 carácteres.</div>
+              <div *ngIf="lastname.errors?.['maxlength']" class="">El apellido debe tener máximo 255 carácteres.</div>
+
+            </div>
           </div>
 
           <div class="mb-3">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" name="email" class="form-control" id="email" [(ngModel)]="client.email">
-            <div id="emailHelp" class="form-text">Ingrese un email válido, ej: user@user.test</div>
+            <label for="email" class="form-label"><i class="bi bi-envelope-at-fill"></i> Email</label>
+            <input
+              type="email"
+              name="email"
+              class="form-control"
+              id="email"
+              [(ngModel)]="client.email"
+              required
+              email
+              #email="ngModel"
+            >
+
+            <div id="emailHelp" class="form-text text-danger"
+                 *ngIf="email.invalid && (email.dirty || email.touched)">
+
+              <div *ngIf="email.errors?.['required']" class="">El email es obligatorio.</div>
+              <div *ngIf="email.errors?.['email']" class="">Formato de email incorrecto.</div>
+
+            </div>
+
           </div>
 
-          <button (click)="createClient()" *ngIf="!client.id else elseBlock" type="submit" class="btn btn-primary container-fluid">
+          <button (click)="createClient()" *ngIf="!client.id else elseBlock" type="submit"
+                  class="btn btn-primary container-fluid" [disabled]="!clientForm.form.valid">
             <i class="bi bi-journal-check"></i> Guardar
           </button>
 
           <ng-template #elseBlock>
-            <button (click)="updateClient()" type="submit" class="btn btn-primary container-fluid">
+            <button (click)="updateClient()" type="submit" class="btn btn-primary container-fluid" [disabled]="!clientForm.form.valid">
               <i class="bi bi-pencil-square"></i> Actualizar
             </button>
           </ng-template>

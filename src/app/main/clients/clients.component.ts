@@ -20,12 +20,12 @@ export class ClientsComponent {
   }
 
   delete(client: Client): void {
-    MODAL.swalConfirm(`¿Seguro quiere eliminar a ${client.name}?`, `Cliente ${ client.name} ${client.lastName} será borrado de forma permanente. Esta acción no es reversible.`, typeIcon.warning)
+    MODAL.swalConfirm(`¿Seguro quiere eliminar a ${client.name}?`, `Cliente ${ client.name} ${client.lastName} será borrado de forma permanente. Esta acción no es reversible.`, typeIcon.WARNING)
       .then((result) => {
         if (result.isConfirmed) {
           this.clientService.deleteClient(client.id).subscribe((result) => {
             this.clients = this.clients?.filter(cli => cli.id != client.id);
-            MODAL.swalClient(`Cliente ${client.name} ${client.lastName} borrado con éxito!`, 'Cliente borrado.', typeIcon.success);
+            MODAL.swalClient(`Cliente ${client.name} ${client.lastName} borrado con éxito!`, 'Cliente borrado.', typeIcon.SUCCESS);
           });
         }
       });

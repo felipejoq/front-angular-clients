@@ -4,5 +4,4 @@ export class Client {
   lastName: string | undefined;
   email: string | undefined;
   createAt: string | undefined;
-
 }

@@ -9,23 +9,22 @@ const mixinOptions = {
 }
 
 export enum typeIcon {
-  success = 'success',
-  warning = 'warning',
-  info = 'info',
-  question = 'question',
-  error = 'error',
+  SUCCESS = 'success',
+  WARNING = 'warning',
+  INFO = 'info',
+  QUESTION = 'question',
+  ERROR = 'error',
 }
 
 export const MODAL = {
-  swalClient: (text: string, title: string, icon: typeIcon): void => {
-    Swal
-      .mixin(mixinOptions)
+  swalClient: (text: string, title: string, icon: typeIcon) => {
+    return Swal
       .fire({
-      title: `${title}`,
-      text: text,
-      icon: icon,
-      confirmButtonText: 'Aceptar'
-    });
+        title: `${title}`,
+        text: text,
+        icon: icon,
+        confirmButtonText: 'Aceptar'
+      });
   },
   swalConfirm: (question: string, text: string, icon: typeIcon) => {
     return Swal
@@ -35,10 +34,19 @@ export const MODAL = {
         text: text,
         icon: icon,
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
         confirmButtonText: 'Aceptar',
         cancelButtonText: 'Cancelar'
+      });
+  },
+  swalError: (title: string, text: string, icon: typeIcon, html?: any,) => {
+    return Swal
+      .mixin(mixinOptions)
+      .fire({
+        title: title,
+        text: text,
+        icon: icon,
+        html: html,
+        confirmButtonText: 'Aceptar',
       });
   }
 }
