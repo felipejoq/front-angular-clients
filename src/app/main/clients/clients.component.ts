@@ -1,4 +1,4 @@
-import {Component, Output} from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {Client} from "./classes/Client";
 import {ClienteService} from "./services/cliente.service";
 import {MODAL, typeIcon} from "../../helpers/swal.helper";
@@ -47,12 +47,16 @@ export class ClientsComponent {
             this.clients = this.clients?.filter(cli => cli.id != client.id);
             if(this.clients.length === 0) {
               this.router.navigate(['/clients/page', this.paginator.number-1]);
-              this.paginator.number = this.paginator.number - 1;
+              this.changePaginator()
             }
             MODAL.swalClient(`Cliente ${client.name} ${client.lastName} borrado con éxito!`, 'Cliente borrado.', typeIcon.SUCCESS);
           });
         }
       });
+  }
+
+  changePaginator () {
+    this.paginator.number = this.paginator.number -= 1;
   }
 
 }

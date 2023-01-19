@@ -2,11 +2,17 @@
   <ul class="pagination">
     <li class="page-item">
       <span class="page-link" *ngIf="paginator.first" [class.disabled]="paginator.first">
-        <i class="bi bi-arrow-left"></i> Previous
+        &laquo;
       </span>
       <a class="page-link" *ngIf="!paginator.first"
          [routerLink]="['/clients/page', paginator.number - 1]">
-        <i class="bi bi-arrow-left"></i> Previous
+        &laquo;
+      </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" [class.disabled]="paginator.first" [routerLink]="['/clients/page', 0]">
+        First
       </a>
     </li>
 
@@ -23,10 +29,16 @@
     </li>
 
     <li class="page-item">
-      <span class="page-link" *ngIf="paginator.last" [class.disabled]="paginator.last">Next <i class="bi bi-arrow-right"></i></span>
+      <a class="page-link" [class.disabled]="paginator.last" [routerLink]="['/clients/page', paginator.totalPages-1]">
+        Last
+      </a>
+    </li>
+
+    <li class="page-item">
+      <span class="page-link" *ngIf="paginator.last" [class.disabled]="paginator.last">&raquo;</span>
       <a class="page-link" *ngIf="!paginator.last"
          [routerLink]="['/clients/page', paginator.number + 1]">
-        Next <i class="bi bi-arrow-right"></i>
+        &raquo;
       </a>
     </li>
   </ul>
