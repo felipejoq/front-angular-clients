@@ -1,0 +1,33 @@
+<nav aria-label="navigation" *ngIf="pages.length > 0">
+  <ul class="pagination">
+    <li class="page-item">
+      <span class="page-link" *ngIf="paginator.first" [class.disabled]="paginator.first">
+        <i class="bi bi-arrow-left"></i> Previous
+      </span>
+      <a class="page-link" *ngIf="!paginator.first"
+         [routerLink]="['/clients/page', paginator.number - 1]">
+        <i class="bi bi-arrow-left"></i> Previous
+      </a>
+    </li>
+
+    <li *ngFor="let noPage of pages" class="page-item">
+      <span class="page-link text-white"
+            *ngIf="noPage - 1 === paginator.number"
+            [class.active]="noPage - 1 === paginator.number">
+        {{ noPage }}
+      </span>
+      <a *ngIf="noPage - 1 != paginator.number"
+         class="page-link" [routerLink]="['/clients/page', noPage - 1]">
+        {{ noPage }}
+      </a>
+    </li>
+
+    <li class="page-item">
+      <span class="page-link" *ngIf="paginator.last" [class.disabled]="paginator.last">Next <i class="bi bi-arrow-right"></i></span>
+      <a class="page-link" *ngIf="!paginator.last"
+         [routerLink]="['/clients/page', paginator.number + 1]">
+        Next <i class="bi bi-arrow-right"></i>
+      </a>
+    </li>
+  </ul>
+</nav>

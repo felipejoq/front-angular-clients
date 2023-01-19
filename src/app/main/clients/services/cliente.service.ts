@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Client} from '../classes/Client';
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, Observable, throwError, map} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {handleError} from "../../../helpers/errorhandler.helper";
+import {ResponseClients} from "../../../helpers/interfaces/client.helper.interface";
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,22 @@ export class ClienteService {
     private readonly router: Router) {
   }
 
-  getClients(): Observable<Client[]> {
+  getClients(page: number): Observable<ResponseClients> {
     // return of(CLIENTES);
     // return this.http.get(`${ this.urlDefault }/clients`)
     //  .pipe(map( response => response as Client[]));
-    return this.http.get<Client[]>(`${this.urlDefault}`);
+    return this.http.get<ResponseClients>(`${this.urlDefault}/page/${page}`);
+      /*.pipe(
+        map((resp) => {
+          let clients = resp as Client[];
+          return clients.map((client: Client) => {
+            // client.createAt = formatDate(Date.parse(client.createAt), 'EEEE dd, MMMM YYYY', 'en-US')
+            // let datePipe = new DatePipe('es')
+            // client.createAt = datePipe.transform(client.createAt, 'EEEE dd, MMMM YYYY');
+            return client;
+          });
+        })
+      );*/
   }
 
   getClient(id: any): Observable<Client> {
