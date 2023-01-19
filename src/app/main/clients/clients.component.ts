@@ -32,7 +32,7 @@ export class ClientsComponent {
       this.clientService.getClients(page).subscribe(responseClients => {
           this.paginator = responseClients;
 
-          this.clients = responseClients.content
+          this.clients = responseClients.content;
         }
       );
     });

@@ -28,10 +28,10 @@ export class FormComponent {
   createClient(): void {
     this.clientService.postClient(this.client)
       .subscribe(resp => {
-        console.log(resp)
-          this.router.navigate(['/clients']);
-          MODAL.swalClient(`Cliente ${resp.client.name} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
-        });
+        let { name, lastName } = resp.client
+        this.router.navigate(['/clients']);
+        MODAL.swalClient(`Cliente ${name} ${lastName} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
+      });
   }
 
   updateClient(): void {

@@ -3,5 +3,5 @@ export class Client {
   name: string | undefined;
   lastName: string | undefined;
   email: string | undefined;
-  createAt: string | null | undefined;
+  createAt: Date;
 }
