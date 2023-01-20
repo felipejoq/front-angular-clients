@@ -11,9 +11,10 @@ import {MODAL, typeIcon} from "../../../helpers/swal.helper";
   styleUrls: ['./form.component.css']
 })
 export class FormComponent {
-  public tituloForm = `Formulario Clientes`;
+  public tituloForm = `Client Form`;
 
   public client: Client = new Client();
+  isCollapsed: boolean;
 
   constructor(
     private readonly clientService: ClientService,

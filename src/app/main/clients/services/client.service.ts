@@ -14,8 +14,6 @@ export class ClientService {
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
 
-  private httpHeadersMultipart = new HttpHeaders( { 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>' })
-
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router) {
