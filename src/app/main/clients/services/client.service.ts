@@ -81,8 +81,11 @@ export class ClientService {
     )
   }
 
-  uploadPhoto(formData: FormData): Observable<any> {
-    return this.http.post(`${this.urlDefault}/photo/upload`, formData,{headers: this.httpHeadersMultipart}).pipe(
+  uploadPhoto(photo: File, id): Observable<any> {
+    let formtData = new FormData();
+    formtData.append('photo', photo);
+    formtData.append('id', id);
+    return this.http.post(`${this.urlDefault}/photo/upload`, formtData).pipe(
       catchError((e: any) => {
         handleError(e);
         return throwError(() => e);

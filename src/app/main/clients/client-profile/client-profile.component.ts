@@ -3,6 +3,7 @@ import {ClientService} from "../services/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Client} from "../classes/Client";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {MODAL, typeIcon} from "../../../helpers/swal.helper";
 
 @Component({
   selector: 'app-client-profile',
@@ -12,6 +13,13 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 export class ClientProfileComponent implements OnInit {
 
   client: Client = null;
+  photo: File;
+
+  load: boolean = false;
+
+  enabled: boolean = true;
+
+  photoInput: FormGroup;
 
   constructor(
     private readonly clientService: ClientService,
@@ -23,6 +31,9 @@ export class ClientProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadClient();
+    this.photoInput = this.formBuilder.group({
+      photo: new FormControl('')
+    });
   }
 
 
@@ -39,13 +50,23 @@ export class ClientProfileComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("Submit!")
+    this.load = !this.load;
+    this.enabled = !this.enabled;
+    if(this.photo){
+      this.clientService.uploadPhoto(this.photo, this.client.id).subscribe(resp => {
+        this.load = !this.load;
+        this.client.imgUrl = resp.client.imgUrl;
+        MODAL.swalClient(resp.message, 'Foto del cliente actualizada!', typeIcon.SUCCESS);
+        this.photoInput.get('photo').setValue("");
+      })
+    }
   }
 
   onFileSelect(event: any) {
     if (event.target.files.length > 0) {
-      const file: File = event.target.files[0];
-      console.log(file);
+      this.photo = event.target.files[0];
+      this.enabled = !this.enabled;
     }
   }
+
 }

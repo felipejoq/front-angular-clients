@@ -1,5 +1,16 @@
-<div class="">
-  <div *ngIf="client" class="card text-bg-light mb-3 card-max-width mx-auto">
+<div  *ngIf="load" class="overlay mx-auto">
+  <div class="d-flex justify-content-center align-items-center align-content-center gap-2">
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+    <div class="loading-text">
+      Subiendo...
+    </div>
+  </div>
+</div>
+
+<div class="" *ngIf="client">
+  <div class="card text-bg-light mb-3 card-max-width mx-auto">
     <div class="card-header">{{ client.name }} {{ client.lastName }}</div>
     <div class="card-body">
 
@@ -44,9 +55,12 @@
     <div class="card-header">Cambiar Imagen de perfil</div>
     <div class="card-body text-secondary mx-auto">
       <div class="card-text">
-        <form (ngSubmit)="onSubmit()">
-          <input type="file" class="form-control file-upload" name="photo" (change)="onFileSelect($event)">
-          <button class="btn btn-primary" type="submit">Upload</button>
+        <form [formGroup]="photoInput" (ngSubmit)="onSubmit()">
+          <div class="input-group">
+            <span class="input-group-text"><i class="bi bi-info-square-fill"></i></span>
+            <input type="file" class="form-control file-upload" formControlName="photo" id="photo" name="photo" (change)="onFileSelect($event)">
+            <button class="btn btn-primary" type="submit" [ngClass]="enabled ? 'disabled' : ''"><i class="bi bi-cloud-arrow-up-fill"></i> Upload</button>
+          </div>
         </form>
       </div>
     </div>
