@@ -9,10 +9,12 @@ import {ResponseClients} from "../../../helpers/interfaces/client.helper.interfa
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteService {
+export class ClientService {
   private urlDefault: string = `http://localhost:8080/api/clients`;
 
   private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
+
+  private httpHeadersMultipart = new HttpHeaders( { 'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>' })
 
   constructor(
     private readonly http: HttpClient,
@@ -24,17 +26,17 @@ export class ClienteService {
     // return this.http.get(`${ this.urlDefault }/clients`)
     //  .pipe(map( response => response as Client[]));
     return this.http.get<ResponseClients>(`${this.urlDefault}/page/${page}`);
-      /*.pipe(
-        map((resp) => {
-          let clients = resp as Client[];
-          return clients.map((client: Client) => {
-            // client.createAt = formatDate(Date.parse(client.createAt), 'EEEE dd, MMMM YYYY', 'en-US')
-            // let datePipe = new DatePipe('es')
-            // client.createAt = datePipe.transform(client.createAt, 'EEEE dd, MMMM YYYY');
-            return client;
-          });
-        })
-      );*/
+    /*.pipe(
+      map((resp) => {
+        let clients = resp as Client[];
+        return clients.map((client: Client) => {
+          // client.createAt = formatDate(Date.parse(client.createAt), 'EEEE dd, MMMM YYYY', 'en-US')
+          // let datePipe = new DatePipe('es')
+          // client.createAt = datePipe.transform(client.createAt, 'EEEE dd, MMMM YYYY');
+          return client;
+        });
+      })
+    );*/
   }
 
   getClient(id: any): Observable<Client> {
@@ -72,6 +74,15 @@ export class ClienteService {
 
   deleteClient(id: any): Observable<Client> {
     return this.http.delete<Client>(`${this.urlDefault}/${id}`, {headers: this.httpHeaders}).pipe(
+      catchError((e: any) => {
+        handleError(e);
+        return throwError(() => e);
+      })
+    )
+  }
+
+  uploadPhoto(formData: FormData): Observable<any> {
+    return this.http.post(`${this.urlDefault}/photo/upload`, formData,{headers: this.httpHeadersMultipart}).pipe(
       catchError((e: any) => {
         handleError(e);
         return throwError(() => e);

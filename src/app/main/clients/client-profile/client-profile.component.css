@@ -1,0 +1,18 @@
+.img-list-profile {
+  margin-right: 2rem;
+  border-radius: 1rem;
+  border: 0.1rem solid #cbcbcb;
+  max-width: 15rem;
+}
+
+.ul-li-max-width {
+  max-width: 20vw;
+}
+
+.card-max-width {
+  max-width: 50vw;
+}
+
+.file-upload {
+  display: inline;
+}

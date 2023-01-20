@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Client} from '../classes/Client';
-import {ClienteService} from '../services/cliente.service';
+import {ClientService} from '../services/client.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
 
@@ -16,7 +16,7 @@ export class FormComponent {
   public client: Client = new Client();
 
   constructor(
-    private readonly clientService: ClienteService,
+    private readonly clientService: ClientService,
     private readonly router: Router,
     private readonly activateRoute: ActivatedRoute) {
   }

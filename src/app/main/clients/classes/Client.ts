@@ -3,5 +3,6 @@ export class Client {
   name: string | undefined;
   lastName: string | undefined;
   email: string | undefined;
+  imgUrl: string;
   createAt: Date;
 }

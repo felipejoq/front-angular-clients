@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Client} from "./classes/Client";
-import {ClienteService} from "./services/cliente.service";
+import {ClientService} from "./services/client.service";
 import {MODAL, typeIcon} from "../../helpers/swal.helper";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResponseClients} from "../../helpers/interfaces/client.helper.interface";
@@ -17,7 +17,7 @@ export class ClientsComponent {
   paginator: ResponseClients | undefined;
 
   constructor(
-    private readonly clientService: ClienteService,
+    private readonly clientService: ClientService,
     private readonly activateRoute: ActivatedRoute,
     private readonly router: Router,
   ) {

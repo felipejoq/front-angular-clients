@@ -17,6 +17,7 @@ export interface Client {
   name: string
   lastName: string
   email: string
+  imgUrl: string
   createAt: Date
 }
 
