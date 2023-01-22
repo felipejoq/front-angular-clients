@@ -1,3 +1,5 @@
+import {Country} from "../../main/country/classes/Country";
+
 export interface ResponseClients {
   content: Client[]
   pageable: Pageable
@@ -18,6 +20,7 @@ export interface Client {
   lastName: string
   email: string
   imgUrl: string
+  country: Country;
   createAt: Date
 }
 

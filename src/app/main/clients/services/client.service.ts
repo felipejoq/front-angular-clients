@@ -19,6 +19,17 @@ export class ClientService {
     private readonly router: Router) {
   }
 
+  getClientsPipe(page:number): Observable<ResponseClients> {
+    return this.http.get<any>(`${this.urlDefault}/page/${page}`).pipe(
+      catchError((e: any) => {
+        handleError(e, `ERROR OBTENIENDO LOS CLIENTES`);
+
+        return throwError(() => e);
+      })
+    )
+  }
+
+
   getClients(page: number): Observable<ResponseClients> {
     // return of(CLIENTES);
     // return this.http.get(`${ this.urlDefault }/clients`)

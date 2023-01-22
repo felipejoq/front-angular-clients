@@ -76,8 +76,19 @@
           </div>
 
           <div class="mb-3">
-            <label for="" class="form-label"><i class="bi bi-calendar3-week-fill"></i> País</label>
-
+            <label class="form-label"><i class="bi bi-flag-fill"></i> País</label>
+            <p-autoComplete
+              name="country"
+              [(ngModel)]="client.country"
+              [suggestions]="results"
+              (completeMethod)="search($event)"
+              field="name"
+              (onSelect)="handleSelected($event)"
+              styleClass="form-control"
+              [forceSelection]="true"
+              placeholder="Elegir país..."
+            >
+            </p-autoComplete>
           </div>
 
           <div class="mb-3">

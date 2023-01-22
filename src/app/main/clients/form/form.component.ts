@@ -5,6 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
 import {Location} from "@angular/common";
 
+import {CountryService} from "../../country/services/country.service";
+import {Country} from "../../country/classes/Country";
+
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -15,8 +19,13 @@ export class FormComponent {
 
   public client: Client = new Client();
 
+  country: Country;
+
+  results: Country[];
+
   constructor(
     private readonly clientService: ClientService,
+    private readonly countryService: CountryService,
     private readonly router: Router,
     private readonly activateRoute: ActivatedRoute,
     private readonly location: Location) {
@@ -34,6 +43,7 @@ export class FormComponent {
         this.location.back();
         MODAL.swalClient(`Cliente ${name} ${lastName} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
       });
+    console.log(this.client);
   }
 
   updateClient(): void {
@@ -57,4 +67,16 @@ export class FormComponent {
     });
   }
 
+  search(event) {
+    console.log("EVENTO: ", event)
+    this.countryService.getCountries(event.query).subscribe(resp => {
+      this.results = resp.countries;
+    })
+  }
+
+
+  handleSelected(country: Country) {
+    // this.client.country = country;
+    console.log(this.client);
+  }
 }

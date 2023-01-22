@@ -75,7 +75,6 @@ export class ClientProfileComponent implements OnInit {
 
   isValidFormatImage(event: any): boolean {
     let formatImage = event.target.files[0].type.split("/")[1];
-    console.log(this.typesImages.indexOf(formatImage) < 0)
     if (this.typesImages.indexOf(formatImage) < 0) {
       MODAL.swalError("Formato no permitido", `Solo imágenes con estos formatos: ${this.typesImages.join(', ')}.`, typeIcon.ERROR);
       this.photoInput.get('photo').setValue("");

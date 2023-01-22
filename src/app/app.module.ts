@@ -16,6 +16,9 @@ import {registerLocaleData} from "@angular/common";
 import localeEsCl from "@angular/common/locales/es-CL";
 import { PaginationComponent } from './pagination/pagination.component';
 import { ClientProfileComponent } from './main/clients/client-profile/client-profile.component';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AutoCompleteModule} from "primeng/autocomplete";
+import {CountryService} from "./main/country/services/country.service";
 
 registerLocaleData(localeEsCl, 'es')
 
@@ -45,13 +48,16 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
+    AutoCompleteModule,
   ],
   providers: [
     ClientService,
+    CountryService,
     { provide: LOCALE_ID, useValue: 'es-CL' }
   ],
   bootstrap: [AppComponent]
