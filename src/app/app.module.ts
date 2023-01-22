@@ -19,6 +19,7 @@ import { ClientProfileComponent } from './main/clients/client-profile/client-pro
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {CountryService} from "./main/country/services/country.service";
+import { GetFlagPipe } from './pipes/get-flag.pipe';
 
 registerLocaleData(localeEsCl, 'es')
 
@@ -44,7 +45,8 @@ const routes: Routes = [
     ClientsComponent,
     FormComponent,
     PaginationComponent,
-    ClientProfileComponent
+    ClientProfileComponent,
+    GetFlagPipe
   ],
   imports: [
     BrowserModule,

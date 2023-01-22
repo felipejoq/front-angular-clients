@@ -19,6 +19,7 @@
         <th scope="col">First</th>
         <th scope="col">Last</th>
         <th scope="col">Email</th>
+        <th scope="col">Country</th>
         <th scope="col">Date</th>
         <th scope="col">Actions</th>
       </tr>
@@ -28,13 +29,16 @@
         <th scope="row">
           <a [routerLink]="['/clients/profile', client.id]">
             <img class="thumbnail-list-profile rounded mx-auto d-block" *ngIf="!client.imgUrl"
-                 src="./assets/img/img-client-default.webp">
-            <img class="thumbnail-list-profile rounded mx-auto d-block" *ngIf="client.imgUrl" src="{{ client.imgUrl }}">
+                 src="./assets/img/img-client-default.webp" alt="">
+            <img class="thumbnail-list-profile rounded mx-auto d-block" *ngIf="client.imgUrl"
+                 src="{{ client.imgUrl }}" alt="">
           </a>
         </th>
         <td>{{ client.name }}</td>
         <td>{{ client.lastName }}</td>
         <td>{{ client.email | titlecase }}</td>
+        <td *ngIf="client.country" class="display-6">{{ client.country.code | getFlag }}</td>
+        <td *ngIf="!client.country" > - </td>
         <td>{{ client.createAt | date: "EEEE dd, MMMM YYYY" }}</td>
         <td>
           <div class="btn-group">

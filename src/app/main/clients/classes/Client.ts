@@ -1,4 +1,5 @@
 import {Country} from "../../country/classes/Country";
+import {getFlagHelper} from "../../../helpers/getflag.helper";
 
 export class Client {
   id: number | undefined;

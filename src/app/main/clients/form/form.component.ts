@@ -68,7 +68,6 @@ export class FormComponent {
   }
 
   search(event) {
-    console.log("EVENTO: ", event)
     this.countryService.getCountries(event.query).subscribe(resp => {
       this.results = resp.countries;
     })
@@ -76,7 +75,5 @@ export class FormComponent {
 
 
   handleSelected(country: Country) {
-    // this.client.country = country;
-    console.log(this.client);
   }
 }

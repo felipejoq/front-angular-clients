@@ -50,7 +50,7 @@
             <li *ngIf="client.country" class="list-group-item">
               <div class="ms-2 me-auto">
                 <div class="fw-bold">Country</div>
-                {{ client.country?.name }} ({{ client.country?.code }})
+                {{ client.country?.name }} ({{ client.country?.code | getFlag }})
               </div>
             </li>
             <li class="list-group-item">
