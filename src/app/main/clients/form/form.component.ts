@@ -3,7 +3,7 @@ import {Client} from '../classes/Client';
 import {ClientService} from '../services/client.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
-
+import {Location} from "@angular/common";
 
 @Component({
   selector: 'app-form',
@@ -14,12 +14,12 @@ export class FormComponent {
   public tituloForm = `Client Form`;
 
   public client: Client = new Client();
-  isCollapsed: boolean;
 
   constructor(
     private readonly clientService: ClientService,
     private readonly router: Router,
-    private readonly activateRoute: ActivatedRoute) {
+    private readonly activateRoute: ActivatedRoute,
+    private readonly location: Location) {
   }
 
   ngOnInit() {
@@ -30,7 +30,8 @@ export class FormComponent {
     this.clientService.postClient(this.client)
       .subscribe(resp => {
         let { name, lastName } = resp.client
-        this.router.navigate(['/clients']);
+        // this.router.navigate(['/clients']);
+        this.location.back();
         MODAL.swalClient(`Cliente ${name} ${lastName} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
       });
   }
@@ -39,7 +40,8 @@ export class FormComponent {
     this.clientService.updateClient(this.client)
       .subscribe(
         resp => {
-          this.router.navigate(['/clients'])
+          // this.router.navigate(['/clients'])
+          this.location.back();
           MODAL.swalClient(`Cliente ${resp.client.name} actualizado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
         })
   }

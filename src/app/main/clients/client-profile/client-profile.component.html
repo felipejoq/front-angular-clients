@@ -10,48 +10,55 @@
 </div>
 
 <div class="" *ngIf="client">
-  <div class="card text-bg-light mb-3 w-50 card-max-width mx-auto">
-    <div class="card-header">{{ client.name }} {{ client.lastName }}</div>
+  <div class="card col-12 col-xl-6 text-bg-light mb-3 mx-auto">
+    <div class="card-header d-flex justify-content-between align-content-center align-items-center">
+      <div class="text-dark-emphasis">{{ client.name }} {{ client.lastName }}</div>
+      <a title="Edit" class="btn btn-primary btn-sm" aria-current="page"
+         [routerLink]="['/clients/form', client.id]">
+        <i class="bi bi-pencil-square"></i> Edit
+      </a>
+    </div>
     <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col col-12 col-xl-6 text-center mb-2">
+          <div *ngIf="!client.imgUrl">
+            <img class="img-fluid rounded-3 border border-1 border-light shadow"
+                 src="./assets/img/img-client-default.webp" alt="">
+          </div>
 
-      <div *ngIf="!client.imgUrl">
-        <img class="img-list-profile float-start" src="./assets/img/img-client-default.webp" alt="">
-      </div>
-
-      <div *ngIf="client.imgUrl">
-        <img class="img-list-profile float-start" src="{{ client.imgUrl }}" alt="">
-      </div>
-
-      <h5 class="card-title">Datos Cliente</h5>
-
-      <div class="card-text">
-
-        <ul class="list-group ul-li-max-width">
-          <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Full Name</div>
-              {{ client.name }} {{ client.lastName }}
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Email</div>
-              {{ client.email }}
-            </div>
-          </li>
-          <li class="list-group-item d-flex justify-content-between align-items-start">
-            <div class="ms-2 me-auto">
-              <div class="fw-bold">Create At</div>
-              {{ client.createAt }}
-            </div>
-          </li>
-
-        </ul>
-
+          <div *ngIf="client.imgUrl">
+            <img class="img-fluid rounded-3 border border-1 border-light shadow" src="{{ client.imgUrl }}" alt="">
+          </div>
+        </div>
+        <div class="col col-12 col-xl-6">
+          <div class="h5 d-flex justify-content-between align-items-center">
+            <div class="card-title">Datos Cliente</div>
+          </div>
+          <ul class="list-group">
+            <li class="list-group-item">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Full Name</div>
+                {{ client.name }} {{ client.lastName }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Email</div>
+                {{ client.email }}
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="ms-2 me-auto">
+                <div class="fw-bold">Create At</div>
+                {{ client.createAt }}
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-  <div class="card my-3 mx-auto card-max-width">
+  <div class="card col-12 col-xl-6  my-3 mx-auto">
     <div class="card-header"><i class="bi bi-person-square"></i> Upload new photo:</div>
     <div class="card-body text-secondary mx-auto">
       <div class="card-text">
@@ -69,5 +76,5 @@
     </div>
   </div>
 
-  <app-form></app-form>
+
 </div>

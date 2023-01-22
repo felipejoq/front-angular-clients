@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ClientService} from "../services/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Client} from "../classes/Client";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
+import {HttpEvent, HttpEventType} from "@angular/common/http";
 
 @Component({
   selector: 'app-client-profile',
@@ -12,14 +13,17 @@ import {MODAL, typeIcon} from "../../../helpers/swal.helper";
 })
 export class ClientProfileComponent implements OnInit {
 
-  client: Client = null;
+  client: Client;
   photo: File;
 
   load: boolean = false;
 
   enabled: boolean = true;
 
+  typesImages: string[] = ['jpg', 'jpeg', 'png', 'gif'];
+
   photoInput: FormGroup;
+
 
   constructor(
     private readonly clientService: ClientService,
@@ -39,11 +43,11 @@ export class ClientProfileComponent implements OnInit {
 
   loadClient(): void {
     this.activateRoute.params.subscribe(params => {
-      const { id } = params;
+      const {id} = params;
 
       if (id) {
         this.clientService.getClient(id)
-          .subscribe(client =>  this.client = client );
+          .subscribe(client => this.client = client);
       }
     });
   }
@@ -64,9 +68,21 @@ export class ClientProfileComponent implements OnInit {
 
   onFileSelect(event: any) {
     if (event.target.files.length > 0) {
+      if (!this.isValidFormatImage(event)) return;
       this.photo = event.target.files[0];
-      this.enabled = !this.enabled;
     }
+  }
+
+  isValidFormatImage(event: any): boolean {
+    let formatImage = event.target.files[0].type.split("/")[1];
+    console.log(this.typesImages.indexOf(formatImage) < 0)
+    if (this.typesImages.indexOf(formatImage) < 0) {
+      MODAL.swalError("Formato no permitido", `Solo imágenes con estos formatos: ${this.typesImages.join(', ')}.`, typeIcon.ERROR);
+      this.photoInput.get('photo').setValue("");
+      return false;
+    }
+    this.enabled = !this.enabled;
+    return true;
   }
 
 }

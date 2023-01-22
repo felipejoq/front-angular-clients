@@ -14,6 +14,8 @@ export class ClientsComponent {
 
   clients: Client[] | undefined;
 
+  clientSelected: Client;
+
   paginator: ResponseClients | undefined;
 
   constructor(
@@ -59,4 +61,7 @@ export class ClientsComponent {
     this.paginator.number = this.paginator.number -= 1;
   }
 
+  openClientProfile(client: Client) {
+    this.clientSelected = client;
+  }
 }

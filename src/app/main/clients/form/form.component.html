@@ -76,6 +76,11 @@
           </div>
 
           <div class="mb-3">
+            <label for="" class="form-label"><i class="bi bi-calendar3-week-fill"></i> País</label>
+
+          </div>
+
+          <div class="mb-3">
             <label for="createAt" class="form-label"><i class="bi bi-calendar3-week-fill"></i> Fecha</label>
             <input
               type="date"
@@ -87,7 +92,8 @@
               #createAt="ngModel"
             >
 
-            <div id="createAtHelp" class="form-text text-danger" *ngIf="createAt.invalid && (createAt.dirty || createAt.touched)">
+            <div id="createAtHelp" class="form-text text-danger"
+                 *ngIf="createAt.invalid && (createAt.dirty || createAt.touched)">
               <div *ngIf="createAt.errors?.['required']" class="">La fecha es obligatoria.</div>
             </div>
 
@@ -99,7 +105,8 @@
           </button>
 
           <ng-template #elseBlock>
-            <button (click)="updateClient()" type="submit" class="btn btn-primary container-fluid" [disabled]="!clientForm.form.valid">
+            <button (click)="updateClient()" type="submit" class="btn btn-primary container-fluid"
+                    [disabled]="!clientForm.form.valid">
               <i class="bi bi-pencil-square"></i> Actualizar
             </button>
           </ng-template>

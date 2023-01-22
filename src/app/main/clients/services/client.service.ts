@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Client} from '../classes/Client';
 import {catchError, Observable, throwError, map} from "rxjs";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {handleError} from "../../../helpers/errorhandler.helper";
 import {ResponseClients} from "../../../helpers/interfaces/client.helper.interface";
@@ -80,6 +80,7 @@ export class ClientService {
   }
 
   uploadPhoto(photo: File, id): Observable<any> {
+
     let formtData = new FormData();
     formtData.append('photo', photo);
     formtData.append('id', id);
