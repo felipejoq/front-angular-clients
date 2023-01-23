@@ -20,6 +20,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {CountryService} from "./main/country/services/country.service";
 import { GetFlagPipe } from './pipes/get-flag.pipe';
+import {CalendarModule} from "primeng/calendar";
+import {InputTextModule} from "primeng/inputtext";
 
 registerLocaleData(localeEsCl, 'es')
 
@@ -56,6 +58,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     ReactiveFormsModule,
     AutoCompleteModule,
+    CalendarModule,
+    InputTextModule,
   ],
   providers: [
     ClientService,

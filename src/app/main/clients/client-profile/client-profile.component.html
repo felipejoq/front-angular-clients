@@ -56,7 +56,7 @@
             <li class="list-group-item">
               <div class="ms-2 me-auto">
                 <div class="fw-bold">Create At</div>
-                {{ client.createAt }}
+                {{ client.createAt | date: "EEEE dd, MMMM YYYY"  }}
               </div>
             </li>
           </ul>

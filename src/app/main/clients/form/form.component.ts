@@ -19,9 +19,9 @@ export class FormComponent {
 
   public client: Client = new Client();
 
-  country: Country;
-
   results: Country[];
+
+  countryIsValid: boolean;
 
   constructor(
     private readonly clientService: ClientService,
@@ -62,7 +62,9 @@ export class FormComponent {
 
       if (id) {
         this.clientService.getClient(id)
-          .subscribe(client => this.client = client);
+          .subscribe(client => {
+            this.client = client;
+          });
       }
     });
   }

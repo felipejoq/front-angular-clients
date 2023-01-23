@@ -4,7 +4,7 @@
     <div class="card-body">
       <div class="card-body">
         <!-- <h5 class="card-title">Formulario para añadir o editar clientes.</h5> -->
-        <form (keydown.enter)="$event.preventDefault()" #clientForm="ngForm">
+        <form class="p-fluid grid formgrid" (keydown.enter)="$event.preventDefault()" #clientForm="ngForm">
           <div class="mb-3">
             <label for="name" class="form-label"><i class="bi bi-person-fill"></i> Name</label>
             <input
@@ -72,24 +72,35 @@
               <div *ngIf="email.errors?.['email']" class="">Formato de email incorrecto.</div>
 
             </div>
-
           </div>
 
           <div class="mb-3">
             <label class="form-label"><i class="bi bi-flag-fill"></i> País</label>
-            <p-autoComplete
-              name="country"
-              [(ngModel)]="client.country"
-              [suggestions]="results"
-              (completeMethod)="search($event)"
-              field="name"
-              (onSelect)="handleSelected($event)"
-              styleClass="form-control"
-              [forceSelection]="true"
-              placeholder="Elegir país..."
-            >
-            </p-autoComplete>
+            <div class="field col-12 md:col-4">
+              <p-autoComplete
+                [style]="{'width': '100%','height':'38px'}"
+                name="country"
+                [(ngModel)]="client.country"
+                [suggestions]="results"
+                (completeMethod)="search($event)"
+                field="name"
+                (onSelect)="handleSelected($event)"
+                [forceSelection]="true"
+                placeholder="Elegir país..."
+                [required]="true"
+                #country="ngModel"
+              >
+              </p-autoComplete>
+            </div>
           </div>
+
+          <div id="countryHelp" class="text-autocomplete form-text text-danger"
+               *ngIf="country.invalid && (country.dirty || country.touched)">
+
+            <div *ngIf="country.errors?.['required']" class="">Elegir un país es requerido.</div>
+
+          </div>
+
 
           <div class="mb-3">
             <label for="createAt" class="form-label"><i class="bi bi-calendar3-week-fill"></i> Fecha</label>
@@ -107,14 +118,13 @@
                  *ngIf="createAt.invalid && (createAt.dirty || createAt.touched)">
               <div *ngIf="createAt.errors?.['required']" class="">La fecha es obligatoria.</div>
             </div>
-
           </div>
 
           <button (click)="createClient()" *ngIf="!client.id else elseBlock" type="submit"
                   class="btn btn-primary container-fluid" [disabled]="!clientForm.form.valid">
             <i class="bi bi-journal-check"></i> Guardar
           </button>
-
+          
           <ng-template #elseBlock>
             <button (click)="updateClient()" type="submit" class="btn btn-primary container-fluid"
                     [disabled]="!clientForm.form.valid">
