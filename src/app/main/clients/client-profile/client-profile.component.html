@@ -13,7 +13,7 @@
   <div class="card col-12 col-xl-6 text-bg-light mb-3 mx-auto">
     <div class="card-header d-flex justify-content-between align-content-center align-items-center">
       <div class="text-dark-emphasis">{{ client.name }} {{ client.lastName }}</div>
-      <a title="Edit" class="btn btn-primary btn-sm" aria-current="page"
+      <a *ngIf="authService.hasRole('ROLE_ADMIN')" title="Edit" class="btn btn-primary btn-sm" aria-current="page"
          [routerLink]="['/clients/form', client.id]">
         <i class="bi bi-pencil-square"></i> Edit
       </a>
@@ -64,7 +64,7 @@
       </div>
     </div>
   </div>
-  <div class="card col-12 col-xl-6  my-3 mx-auto">
+  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="card col-12 col-xl-6  my-3 mx-auto">
     <div class="card-header"><i class="bi bi-person-square"></i> Upload new photo:</div>
     <div class="card-body text-secondary mx-auto">
       <div class="card-text">

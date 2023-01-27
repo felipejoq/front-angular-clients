@@ -5,6 +5,7 @@ import {Client} from "../classes/Client";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
 import {HttpEvent, HttpEventType} from "@angular/common/http";
+import {AuthService} from "../../users/services/auth.service";
 
 @Component({
   selector: 'app-client-profile',
@@ -30,6 +31,7 @@ export class ClientProfileComponent implements OnInit {
     private readonly activateRoute: ActivatedRoute,
     private readonly router: Router,
     private formBuilder: FormBuilder,
+    readonly authService: AuthService,
   ) {
   }
 

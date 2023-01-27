@@ -19,6 +19,10 @@ export const handleError = (e: any, message?: any): void => {
     template = divElement.innerText;
   }
 
+  if(e.status == 401 || e.status == 403) {
+    return;
+  }
+
   if (!e.error.errors) {
     message = `${e.error.message} ${e.error.error}`;
   }

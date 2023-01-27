@@ -4,6 +4,7 @@ import {ClientService} from "./services/client.service";
 import {MODAL, typeIcon} from "../../helpers/swal.helper";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ResponseClients} from "../../helpers/interfaces/client.helper.interface";
+import {AuthService} from "../users/services/auth.service";
 
 @Component({
   selector: 'app-clients',
@@ -22,6 +23,7 @@ export class ClientsComponent {
     private readonly clientService: ClientService,
     private readonly activateRoute: ActivatedRoute,
     private readonly router: Router,
+    readonly authService: AuthService,
   ) {
   }
 

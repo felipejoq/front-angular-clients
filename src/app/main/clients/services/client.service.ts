@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Client} from '../classes/Client';
-import {catchError, Observable, throwError, map} from "rxjs";
-import {HttpClient, HttpEvent, HttpHeaders, HttpRequest} from "@angular/common/http";
-import {Router} from "@angular/router";
+import {catchError, Observable, throwError} from "rxjs";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {handleError} from "../../../helpers/errorhandler.helper";
 import {ResponseClients} from "../../../helpers/interfaces/client.helper.interface";
+import {AuthService} from "../../users/services/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,22 +12,21 @@ import {ResponseClients} from "../../../helpers/interfaces/client.helper.interfa
 export class ClientService {
   private urlDefault: string = `http://localhost:8080/api/clients`;
 
-  private httpHeaders = new HttpHeaders({'Content-Type': 'application/json'})
-
   constructor(
+    private readonly authService: AuthService,
     private readonly http: HttpClient,
-    private readonly router: Router) {
+    ) {
   }
 
-  getClientsPipe(page:number): Observable<ResponseClients> {
-    return this.http.get<any>(`${this.urlDefault}/page/${page}`).pipe(
-      catchError((e: any) => {
-        handleError(e, `ERROR OBTENIENDO LOS CLIENTES`);
-
-        return throwError(() => e);
-      })
-    )
-  }
+  // getClientsPipe(page: number): Observable<ResponseClients> {
+  //   return this.http.get<any>(`${this.urlDefault}/page/${page}`).pipe(
+  //     catchError((e: any) => {
+  //       this.isNotAuth.isAuth(e);
+  //       handleError(e, `ERROR OBTENIENDO LOS CLIENTES`);
+  //       return throwError(() => e);
+  //     })
+  //   )
+  // }
 
 
   getClients(page: number): Observable<ResponseClients> {
@@ -51,17 +50,14 @@ export class ClientService {
   getClient(id: any): Observable<Client> {
     return this.http.get<Client>(`${this.urlDefault}/${id}`).pipe(
       catchError((e: any) => {
-        this.router.navigate(['/clients']);
-
         handleError(e, `El cliente con ID: ${id} no existe!`);
-
         return throwError(() => e);
       })
     );
   }
 
   postClient(client: Client): Observable<any> {
-    return this.http.post(`${this.urlDefault}`, client, {headers: this.httpHeaders})
+    return this.http.post(`${this.urlDefault}`, client)
       .pipe(
         //map( (resp:any) => resp.client as Client),
         catchError((e: any) => {
@@ -73,7 +69,7 @@ export class ClientService {
   }
 
   updateClient(client: Client): Observable<any> {
-    return this.http.put<any>(`${this.urlDefault}/${client.id}`, client, {headers: this.httpHeaders}).pipe(
+    return this.http.put<any>(`${this.urlDefault}/${client.id}`, client).pipe(
       catchError((e: any) => {
         handleError(e);
         return throwError(() => e);
@@ -82,7 +78,7 @@ export class ClientService {
   }
 
   deleteClient(id: any): Observable<Client> {
-    return this.http.delete<Client>(`${this.urlDefault}/${id}`, {headers: this.httpHeaders}).pipe(
+    return this.http.delete<Client>(`${this.urlDefault}/${id}`).pipe(
       catchError((e: any) => {
         handleError(e);
         return throwError(() => e);
@@ -92,10 +88,17 @@ export class ClientService {
 
   uploadPhoto(photo: File, id): Observable<any> {
 
-    let formtData = new FormData();
-    formtData.append('photo', photo);
-    formtData.append('id', id);
-    return this.http.post(`${this.urlDefault}/photo/upload`, formtData).pipe(
+    let formData = new FormData();
+    formData.append('photo', photo);
+    formData.append('id', id);
+
+    let httpHeaders = new HttpHeaders();
+    let token = this.authService.token;
+    if (token != null) {
+      httpHeaders = httpHeaders.append('Authorization', `Bearer ${token}`)
+    }
+
+    return this.http.post(`${this.urlDefault}/photo/upload`, formData, {headers: httpHeaders}).pipe(
       catchError((e: any) => {
         handleError(e);
         return throwError(() => e);

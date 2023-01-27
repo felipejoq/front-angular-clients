@@ -12,12 +12,15 @@
             <a class="nav-link" aria-current="page" routerLink="/clients">Clientes</a>
           </li>
 
-          <li class="nav-item" routerLinkActive="active">
+          <li
+            *ngIf="authService.isAuthenticated() && (authService.hasRole('ROLE_ADMIN') || authService.hasRole('ROLE_SELLER'))"
+            class="nav-item" routerLinkActive="active">
             <a class="nav-link" aria-current="page" routerLink="clients/form">Añadir Cliente</a>
           </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
               Directivas
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -27,14 +30,27 @@
               <div class="dropdown-item">Something else here</div>
             </div>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-secondary" type="submit">Search</button>
-        </form>
+        <ul class="navbar-nav ms-auto">
+
+          <li *ngIf="authService.isAuthenticated()" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              <i class="bi bi-person-circle"></i> {{ authService.user.username }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+              <div class="dropdown-item">
+                <a (click)="logout()" class="btn btn-secondary btn-sm container-fluid" aria-current="page"
+                   routerLink="login">
+                  <i class="bi bi-door-closed"></i> Logout</a>
+              </div>
+            </div>
+          </li>
+          <li *ngIf="!authService.isAuthenticated()" class="nav-item" routerLinkActive="active">
+            <a class="nav-link btn btn-secondary btn-sm" aria-current="page" routerLink="login">Sign In</a>
+          </li>
+
+        </ul>
       </div>
     </div>
   </nav>
