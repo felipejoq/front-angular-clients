@@ -3,7 +3,7 @@ import {Client} from "./classes/Client";
 import {ClientService} from "./services/client.service";
 import {MODAL, typeIcon} from "../../helpers/swal.helper";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ResponseClients} from "../../helpers/interfaces/clients.interface";
+import {ResponseClients} from "../../helpers/interfaces/response-clients.interface";
 import {AuthService} from "../users/services/auth.service";
 
 @Component({
