@@ -1,4 +1,5 @@
-import {Country} from "../../main/country/classes/Country";
+
+import {Client} from "../../main/clients/classes/Client";
 
 export interface ResponseClients {
   content: Client[]
@@ -12,16 +13,6 @@ export interface ResponseClients {
   sort: Sort2
   numberOfElements: number
   empty: boolean
-}
-
-export interface Client {
-  id: number
-  name: string
-  lastName: string
-  email: string
-  imgUrl: string
-  country: Country;
-  createAt: Date
 }
 
 export interface Pageable {

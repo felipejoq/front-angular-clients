@@ -1,7 +1,7 @@
-import {Country} from "../../country/classes/Country";
-import {Invoice} from "../../invoices/classes/Invoice";
+import {Country} from "../../main/country/classes/Country";
+import {Invoice} from "../../main/invoices/classes/Invoice";
 
-export class Client {
+export interface Client {
   id:       number;
   name:     string;
   lastName: string;
@@ -11,3 +11,9 @@ export class Client {
   invoices: Invoice[];
   createAt: Date;
 }
+
+
+
+
+
+

@@ -3,7 +3,7 @@ import {Client} from '../classes/Client';
 import {catchError, Observable, throwError} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {handleError} from "../../../helpers/errorhandler.helper";
-import {ResponseClients} from "../../../helpers/interfaces/client.helper.interface";
+import {ResponseClients} from "../../../helpers/interfaces/clients.interface";
 import {AuthService} from "../../users/services/auth.service";
 
 @Injectable({

@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {ResponseClients} from "../helpers/interfaces/client.helper.interface";
+import {ResponseClients} from "../helpers/interfaces/clients.interface";
 import { Router } from "@angular/router";
 
 @Component({
