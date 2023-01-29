@@ -8,5 +8,15 @@ body {
 }
 
 footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.swal2-container {
+  z-index: 100000 !important;
 }

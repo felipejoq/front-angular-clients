@@ -29,6 +29,8 @@ import {AuthGuard} from "./main/users/guards/auth.guard";
 import {RoleGuard} from "./main/users/guards/role.guard";
 import {HeadersInterceptor} from "./main/users/interceptors/headers.interceptor";
 import {UnauthorizedInterceptor} from "./main/users/interceptors/unauthorized.interceptor";
+import { InvoicesComponent } from './main/invoices/invoices.component';
+import {DialogModule} from "primeng/dialog";
 
 registerLocaleData(localeEsCl, 'es')
 
@@ -66,7 +68,8 @@ const routes: Routes = [
     PaginationComponent,
     ClientProfileComponent,
     GetFlagPipe,
-    LoginComponent
+    LoginComponent,
+    InvoicesComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +81,7 @@ const routes: Routes = [
     AutoCompleteModule,
     CalendarModule,
     InputTextModule,
+    DialogModule,
   ],
   providers: [
     ClientService,

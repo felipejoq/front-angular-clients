@@ -19,3 +19,11 @@
   background-color: #fff;
   z-index: 99;
 }
+
+.profile-image {
+  max-width: 20rem;
+}
+
+.card-body {
+
+}

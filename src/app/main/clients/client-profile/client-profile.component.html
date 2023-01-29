@@ -10,17 +10,17 @@
 </div>
 
 <div class="" *ngIf="client">
-  <div class="card col-12 col-xl-6 text-bg-light mb-3 mx-auto">
+  <div class="card col-12 col-xl-12 text-bg-light mb-3 mx-auto">
     <div class="card-header d-flex justify-content-between align-content-center align-items-center">
-      <div class="text-dark-emphasis">{{ client.name }} {{ client.lastName }}</div>
+      <div class="fw-bold"><i class="bi bi-person-circle"></i> {{ client.name }} {{ client.lastName }}</div>
       <a *ngIf="authService.hasRole('ROLE_ADMIN')" title="Edit" class="btn btn-primary btn-sm" aria-current="page"
          [routerLink]="['/clients/form', client.id]">
         <i class="bi bi-pencil-square"></i> Edit
       </a>
     </div>
     <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col col-12 col-xl-6 text-center mb-2">
+      <div class="row justify-content-around">
+        <div class="profile-image col col-12 col-xl-6 text-center mb-2">
           <div *ngIf="!client.imgUrl">
             <img class="img-fluid rounded-3 border border-1 border-light shadow"
                  src="./assets/img/img-client-default.webp" alt="">
@@ -29,12 +29,35 @@
           <div *ngIf="client.imgUrl">
             <img class="img-fluid rounded-3 border border-1 border-light shadow" src="{{ client.imgUrl }}" alt="">
           </div>
+
+          <form *ngIf="authService.hasRole('ROLE_ADMIN')" [formGroup]="photoInput" (ngSubmit)="onSubmit()">
+
+            <div *ngIf="photoName" class="form-control text-truncate mt-2">
+              <span><i (click)="clearPhotoName()" class="bi bi-x-square cursor-pointer text-primary"></i> {{ photoName }}</span>
+            </div>
+            <div class="btn-group">
+              <button [ngClass]="!enabled ? '' : ''" *ngIf="authService.hasRole('ROLE_ADMIN')"
+                      class="btn btn-primary btn-sm my-2"
+                      type="button" (click)="fileInput.click()">
+                <span><i class="bi bi-camera-fill"></i> Select Photo</span>
+                <input #fileInput type="file" id="photo" name="photo" formControlName="photo"
+                       (change)="onFileSelect($event)" style="display:none;"/>
+              </button>
+
+              <button class="btn btn-primary btn-sm my-2" type="submit" [ngClass]="enabled ? 'disabled' : ''">
+                <i class="bi bi-cloud-arrow-up-fill"></i> Upload
+              </button>
+            </div>
+          </form>
+
         </div>
         <div class="col col-12 col-xl-6">
-          <div class="h5 d-flex justify-content-between align-items-center">
-            <div class="card-title">Datos Cliente</div>
-          </div>
           <ul class="list-group">
+            <li class="list-group-item bg-secondary text-white">
+                <div class="fw-bold ms-2 me-auto">
+                  <i class="bi bi-info-square"></i> Client Info
+                </div>
+            </li>
             <li class="list-group-item">
               <div class="ms-2 me-auto">
                 <div class="fw-bold">Full Name</div>
@@ -64,23 +87,5 @@
       </div>
     </div>
   </div>
-  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="card col-12 col-xl-6  my-3 mx-auto">
-    <div class="card-header"><i class="bi bi-person-square"></i> Upload new photo:</div>
-    <div class="card-body text-secondary mx-auto">
-      <div class="card-text">
-        <form [formGroup]="photoInput" (ngSubmit)="onSubmit()">
-          <div class="input-group">
-            <span class="input-group-text"><i class="bi bi-image-fill"></i></span>
-            <input type="file" class="form-control file-upload" formControlName="photo" id="photo" name="photo"
-                   (change)="onFileSelect($event)">
-            <button class="btn btn-primary" type="submit" [ngClass]="enabled ? 'disabled' : ''"><i
-              class="bi bi-cloud-arrow-up-fill"></i> Upload
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-
+  <app-invoices *ngIf="invoices" [invoices]="invoices"></app-invoices>
 </div>

@@ -1,20 +1,21 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ClientService} from "../services/client.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Client} from "../classes/Client";
 import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
-import {HttpEvent, HttpEventType} from "@angular/common/http";
 import {AuthService} from "../../users/services/auth.service";
+import {Invoice} from "../../invoices/classes/Invoice";
 
 @Component({
   selector: 'app-client-profile',
   templateUrl: './client-profile.component.html',
   styleUrls: ['./client-profile.component.css']
 })
-export class ClientProfileComponent implements OnInit {
+export class ClientProfileComponent implements OnInit, OnChanges {
 
-  client: Client;
+  @Input() client: Client;
+
   photo: File;
 
   load: boolean = false;
@@ -24,7 +25,8 @@ export class ClientProfileComponent implements OnInit {
   typesImages: string[] = ['jpg', 'jpeg', 'png', 'gif'];
 
   photoInput: FormGroup;
-
+  photoName: string;
+  invoices: Invoice[];
 
   constructor(
     private readonly clientService: ClientService,
@@ -43,13 +45,17 @@ export class ClientProfileComponent implements OnInit {
   }
 
 
+
   loadClient(): void {
     this.activateRoute.params.subscribe(params => {
       const {id} = params;
 
       if (id) {
         this.clientService.getClient(id)
-          .subscribe(client => this.client = client);
+          .subscribe(client => {
+            this.client = client
+            this.invoices = client.invoices;
+          });
       }
     });
   }
@@ -57,13 +63,14 @@ export class ClientProfileComponent implements OnInit {
 
   onSubmit() {
     this.load = !this.load;
-    this.enabled = !this.enabled;
+    this.photoName = null;
     if(this.photo){
       this.clientService.uploadPhoto(this.photo, this.client.id).subscribe(resp => {
         this.load = !this.load;
         this.client.imgUrl = resp.client.imgUrl;
         MODAL.swalClient(resp.message, 'Foto del cliente actualizada!', typeIcon.SUCCESS);
         this.photoInput.get('photo').setValue("");
+        this.enabled = !this.enabled;
       })
     }
   }
@@ -72,6 +79,8 @@ export class ClientProfileComponent implements OnInit {
     if (event.target.files.length > 0) {
       if (!this.isValidFormatImage(event)) return;
       this.photo = event.target.files[0];
+      this.photoName = event.target.files[0].name;
+      this.enabled = !this.enabled;
     }
   }
 
@@ -80,10 +89,20 @@ export class ClientProfileComponent implements OnInit {
     if (this.typesImages.indexOf(formatImage) < 0) {
       MODAL.swalError("Formato no permitido", `Solo imágenes con estos formatos: ${this.typesImages.join(', ')}.`, typeIcon.ERROR);
       this.photoInput.get('photo').setValue("");
+      this.enabled = !this.enabled;
       return false;
     }
-    this.enabled = !this.enabled;
     return true;
   }
 
+  clearPhotoName() {
+    if(this.photoName) {
+      this.photoName = null
+      this.enabled = !this.enabled;
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.client) this.invoices = this.client.invoices
+  }
 }

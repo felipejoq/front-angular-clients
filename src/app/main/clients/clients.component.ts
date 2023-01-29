@@ -16,8 +16,8 @@ export class ClientsComponent {
   clients: Client[] | undefined;
 
   clientSelected: Client;
-
   paginator: ResponseClients | undefined;
+  display: boolean = false;
 
   constructor(
     private readonly clientService: ClientService,
@@ -43,14 +43,19 @@ export class ClientsComponent {
 
   }
 
+  newClientSelected(client: Client) {
+    this.clientSelected = client;
+    this.display = !this.display;
+  }
+
   delete(client: Client): void {
     MODAL.swalConfirm(`¿Seguro quiere eliminar a ${client.name}?`, `Cliente ${client.name} ${client.lastName} será borrado de forma permanente. Esta acción no es reversible.`, typeIcon.WARNING)
       .then((result) => {
         if (result.isConfirmed) {
           this.clientService.deleteClient(client.id).subscribe((result) => {
             this.clients = this.clients?.filter(cli => cli.id != client.id);
-            if(this.clients.length === 0) {
-              this.router.navigate(['/clients/page', this.paginator.number-1]);
+            if (this.clients.length === 0) {
+              this.router.navigate(['/clients/page', this.paginator.number - 1]);
               this.changePaginator()
             }
             MODAL.swalClient(`Cliente ${client.name} ${client.lastName} borrado con éxito!`, 'Cliente borrado.', typeIcon.SUCCESS);
@@ -59,7 +64,7 @@ export class ClientsComponent {
       });
   }
 
-  changePaginator () {
+  changePaginator() {
     this.paginator.number = this.paginator.number -= 1;
   }
 
