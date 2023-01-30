@@ -3,7 +3,7 @@ import {Client} from "./classes/Client";
 import {ClientService} from "./services/client.service";
 import {MODAL, typeIcon} from "../../helpers/swal.helper";
 import {ActivatedRoute, Router} from "@angular/router";
-import {ResponseClients} from "../../helpers/interfaces/response-clients.interface";
+import {Response} from "../../helpers/interfaces/response-clients.interface";
 import {AuthService} from "../users/services/auth.service";
 
 @Component({
@@ -16,7 +16,7 @@ export class ClientsComponent {
   clients: Client[] | undefined;
 
   clientSelected: Client;
-  paginator: ResponseClients | undefined;
+  paginator: Response | undefined;
   display: boolean = false;
 
   constructor(
@@ -30,7 +30,6 @@ export class ClientsComponent {
   ngOnInit() {
 
     this.activateRoute.paramMap.subscribe(params => {
-      // @ts-ignore
       let page: number = params.get("page") ? +params.get("page") : 0;
 
       this.clientService.getClients(page).subscribe(responseClients => {

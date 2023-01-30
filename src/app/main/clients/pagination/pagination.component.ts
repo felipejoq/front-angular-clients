@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
-import {ResponseClients} from "../helpers/interfaces/response-clients.interface";
+import {Response} from "../../../helpers/interfaces/response-clients.interface";
 import { Router } from "@angular/router";
 
 @Component({
@@ -9,12 +9,14 @@ import { Router } from "@angular/router";
 })
 export class PaginationComponent implements OnChanges {
 
-  @Input() paginator: ResponseClients | undefined;
+  @Input() paginator: Response | undefined;
 
   pages: number[];
 
   from: number;
   until: number;
+
+  rute: string;
 
   constructor(private readonly router: Router) {
   }

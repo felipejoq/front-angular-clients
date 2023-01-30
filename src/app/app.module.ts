@@ -14,7 +14,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 import {registerLocaleData} from "@angular/common";
 import localeEsCl from "@angular/common/locales/es-CL";
-import {PaginationComponent} from './pagination/pagination.component';
+import {PaginationComponent} from './main/clients/pagination/pagination.component';
 import {ClientProfileComponent} from './main/clients/client-profile/client-profile.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AutoCompleteModule} from "primeng/autocomplete";
@@ -31,6 +31,9 @@ import {HeadersInterceptor} from "./main/users/interceptors/headers.interceptor"
 import {UnauthorizedInterceptor} from "./main/users/interceptors/unauthorized.interceptor";
 import { InvoicesComponent } from './main/invoices/invoices.component';
 import {DialogModule} from "primeng/dialog";
+import {PaginationInvoicesComponent} from "./main/invoices/paginator/pagination-invoices.component";
+import {FormInvoiceComponent} from "./main/invoices/form/form-invoice.component";
+import {ProductService} from "./main/invoices/services/product.service";
 
 registerLocaleData(localeEsCl, 'es')
 
@@ -44,6 +47,7 @@ const routes: Routes = [
     component: FormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {role: 'ROLE_ADMIN'}},
+  {path: 'clients/profile/:id/page/:page', component: ClientProfileComponent},
   {
     path: 'clients/profile/:id',
     component: ClientProfileComponent,
@@ -51,6 +55,7 @@ const routes: Routes = [
     data: {role: 'ROLE_USER'}
   },
   {path: 'clients/profile', redirectTo: '/clients'},
+  {path: 'clients/:id/invoice', component: FormInvoiceComponent},
   {path: 'login', component: LoginComponent},
   {path: 'ngif', component: NgifComponent},
   {path: 'ngfor', component: NgforComponent},
@@ -69,7 +74,9 @@ const routes: Routes = [
     ClientProfileComponent,
     GetFlagPipe,
     LoginComponent,
-    InvoicesComponent
+    InvoicesComponent,
+    FormInvoiceComponent,
+    PaginationInvoicesComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +95,7 @@ const routes: Routes = [
     CountryService,
     AuthService,
     IsAuthorizedHelper,
+    ProductService,
     {provide: HTTP_INTERCEPTORS, useClass: HeadersInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: UnauthorizedInterceptor, multi: true},
     {provide: LOCALE_ID, useValue: 'es-CL'}

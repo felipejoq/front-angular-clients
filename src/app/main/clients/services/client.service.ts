@@ -3,7 +3,7 @@ import {Client} from '../classes/Client';
 import {catchError, Observable, throwError} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {handleError} from "../../../helpers/errorhandler.helper";
-import {ResponseClients} from "../../../helpers/interfaces/response-clients.interface";
+import {Response} from "../../../helpers/interfaces/response-clients.interface";
 import {AuthService} from "../../users/services/auth.service";
 
 @Injectable({
@@ -29,11 +29,11 @@ export class ClientService {
   // }
 
 
-  getClients(page: number): Observable<ResponseClients> {
+  getClients(page: number): Observable<Response> {
     // return of(CLIENTES);
     // return this.http.get(`${ this.urlDefault }/clients`)
     //  .pipe(map( response => response as Client[]));
-    return this.http.get<ResponseClients>(`${this.urlDefault}/page/${page}`);
+    return this.http.get<Response>(`${this.urlDefault}/page/${page}`);
     /*.pipe(
       map((resp) => {
         let clients = resp as Client[];

@@ -1,0 +1,45 @@
+<nav aria-label="navigation" *ngIf="pages.length > 0">
+  <ul class="pagination">
+    <li class="page-item">
+      <span class="page-link" *ngIf="paginator.first" [class.disabled]="paginator.first">
+        &laquo;
+      </span>
+      <a class="page-link" *ngIf="!paginator.first"
+         [routerLink]="['/clients/page', paginator.number - 1]">
+        &laquo;
+      </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" [class.disabled]="paginator.first" [routerLink]="['/clients/profile',client.id,'page', 0]">
+        First
+      </a>
+    </li>
+
+    <li *ngFor="let noPage of pages" class="page-item">
+      <span class="page-link text-white"
+            *ngIf="noPage - 1 === paginator.number"
+            [class.active]="noPage - 1 === paginator.number">
+        {{ noPage }}
+      </span>
+      <a *ngIf="noPage - 1 != paginator.number"
+         class="page-link" [routerLink]="['/clients/profile', client.id ,'page', noPage - 1]">
+        {{ noPage }}
+      </a>
+    </li>
+
+    <li class="page-item">
+      <a class="page-link" [class.disabled]="paginator.last" [routerLink]="['/clients/profile', client.id ,'page', paginator.totalPages-1]">
+        Last
+      </a>
+    </li>
+
+    <li class="page-item">
+      <span class="page-link" *ngIf="paginator.last" [class.disabled]="paginator.last">&raquo;</span>
+      <a class="page-link" *ngIf="!paginator.last"
+         [routerLink]="['/clients/profile', client.id, 'page', paginator.number + 1]">
+        &raquo;
+      </a>
+    </li>
+  </ul>
+</nav>

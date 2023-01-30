@@ -2,7 +2,9 @@ import {Product} from "./Product";
 
 export class Item {
   id:        number;
-  cuanty:    number;
+  cuanty:    number = 1;
   product:   Product;
-  totalItem: number;
+  totalItem? = (): number => {
+    return this.cuanty * this.product.price;
+  }
 }

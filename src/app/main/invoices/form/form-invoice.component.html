@@ -1,0 +1,135 @@
+<div *ngIf="invoice.client" class="d-flex justify-content-center flex-column">
+  <div class="card text-bg-light mx-auto mb-3 w-75">
+    <div class="card-header"><i class="bi bi-info-square-fill"></i> Create Invoice</div>
+    <div class="card-body">
+      <div class="card-body">
+        <form (keydown.enter)="$event.preventDefault()" #invoiceForm="ngForm">
+
+          <div class="row justify-content-around">
+            <div class="profile-image col col-12 col-xl-6 text-center mb-2">
+              <div *ngIf="!invoice.client.imgUrl">
+                <img class="img-fluid rounded-3 border border-1 border-light shadow"
+                     src="./assets/img/img-client-default.webp" alt="">
+              </div>
+
+              <div *ngIf="invoice.client.imgUrl">
+                <img class="img-fluid rounded-3 border border-1 border-light shadow" src="{{ invoice.client.imgUrl }}" alt="">
+              </div>
+            </div>
+            <div class="col col-12 col-xl-6">
+              <ul class="list-group">
+                <li class="list-group-item bg-secondary text-white">
+                  <div class="fw-bold ms-2 me-auto">
+                    <i class="bi bi-info-square"></i> Client Info
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Full Name</div>
+                    {{ invoice.client.name }} {{ invoice.client.lastName }}
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Email</div>
+                    {{ invoice.client.email }}
+                  </div>
+                </li>
+                <li *ngIf="client.country" class="list-group-item">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Country</div>
+                    {{ invoice.client.country?.name }} ({{ invoice.client.country?.code | getFlag }})
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="ms-2 me-auto">
+                    <div class="fw-bold">Create At</div>
+                    {{ invoice.client.createAt | date: "EEEE dd, MMMM YYYY"  }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="my-4 card-text border-bottom border-2 border-secondary border-opacity-25 fw-bold">Create Invoice</p>
+
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <input type="text" class="form-control" id="description" name="description"
+                   [(ngModel)]="invoice.description" required autofocus>
+          </div>
+
+          <div class="mb-3">
+            <label for="observation" class="form-label">Observation</label>
+            <input type="text" class="form-control" id="observation" name="observation"
+                   [(ngModel)]="invoice.observation" required>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label"><i class="bi bi-flag-fill"></i> Search Products</label>
+            <div class="field col-12 md:col-4">
+              <p-autoComplete
+                name="product"
+                field="name"
+                placeholder="Write here..."
+                [showEmptyMessage]="true"
+                [style]="{'width': '100%','height':'38px'}"
+                [inputStyle]="{'width':'100%'}"
+                [suggestions]="products"
+                (completeMethod)="search($event)"
+                (onSelect)="handleSelected($event)"
+                [minLength]="1"
+                [(ngModel)]="selectedValue"
+                [required]="true"
+              >
+              </p-autoComplete>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <table *ngIf="invoice.items.length > 0" class="table">
+              <thead>
+              <tr>
+                <th scope="col">Nº</th>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Qty.</th>
+                <th scope="col">Total</th>
+                <th scope="col">Del</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let item of invoice.items; let i = index;">
+                <th scope="row">{{ i+1 }}</th>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>
+                  <input (change)="modifyQty(item, $event)" class="form-control quanty-form-control" type="number" name="cuanty" id="cuanty" [value]="item.cuanty">
+                </td>
+                <td>{{ item.totalItem() }}</td>
+                <td>
+                  <div class="btn-group btn-group-sm">
+                    <button (click)="deleteItem(item)" class="btn btn-danger btn-sm">
+                      <i class="bi bi-x-square-fill"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+            <div class="w-100 mt-5">
+              <div class="h5 text-end d-flex flex-column gap-1">
+                <p class="fw-bold text-primary">{{ invoice.calculateTotalAmountDue() | currency: 'CLP' }}</p>
+                <div class="border-top border-1 border-secondary w-25 align-self-end"></div>
+                <div class="h6 text-end">Total Invoice</div>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-sm container-fluid" (click)="createInvoice()">Create Invoice</button>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

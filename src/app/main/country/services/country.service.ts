@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {catchError, throwError} from "rxjs";
 import {handleError} from "../../../helpers/errorhandler.helper";
-import {Country} from "../../../helpers/interfaces/countries-result.interface";
+import {CountryResult} from "../../../helpers/interfaces/countries-result.interface";
 import {IsAuthorizedHelper} from "../../../helpers/is-authorized.helper";
 import {ClientService} from "../../clients/services/client.service";
 
@@ -21,7 +21,7 @@ export class CountryService {
     private readonly isNoAuth: IsAuthorizedHelper) { }
 
   getCountries(term:string) {
-    return this.http.get<Country>(`${this.urlDefault}/${term}`).pipe(
+    return this.http.get<CountryResult>(`${this.urlDefault}/${term}`).pipe(
       catchError((e: any) => {
         this.isNoAuth.isAuth(e)
         handleError(e, `ERROR: Countries not found.`);

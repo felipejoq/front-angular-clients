@@ -1,0 +1,12 @@
+.profile-image {
+  max-width: 10rem;
+}
+
+.product-autocomplete {
+  width: 100% !important;
+  border: 1px solid red;
+}
+
+.quanty-form-control {
+  max-width: 5rem;
+}

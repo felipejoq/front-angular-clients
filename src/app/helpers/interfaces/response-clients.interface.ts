@@ -1,8 +1,5 @@
-
-import {Client} from "../../main/clients/classes/Client";
-
-export interface ResponseClients {
-  content: Client[]
+export interface Response {
+  content: any[]
   pageable: Pageable
   last: boolean
   totalPages: number

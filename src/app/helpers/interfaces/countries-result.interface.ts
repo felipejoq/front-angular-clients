@@ -1,11 +1,14 @@
-export interface Country {
-  countries: CountryElement[];
+import {Product} from "../../main/invoices/classes/Product";
+import {Country} from "../../main/country/classes/Country";
+
+export interface CountryResult {
+  countries: Country[];
   ok:        boolean;
   message:   string;
 }
 
-export interface CountryElement {
-  id:   number;
-  code: string;
-  name: string;
+export interface ProductResult {
+  products: Product[];
+  ok:        boolean;
+  message:   string;
 }

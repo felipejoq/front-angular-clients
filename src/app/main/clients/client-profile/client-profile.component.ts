@@ -6,6 +6,8 @@ import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MODAL, typeIcon} from "../../../helpers/swal.helper";
 import {AuthService} from "../../users/services/auth.service";
 import {Invoice} from "../../invoices/classes/Invoice";
+import {InvoiceService} from "../../invoices/services/invoice.service";
+import {Response} from "../../../helpers/interfaces/response-clients.interface";
 
 @Component({
   selector: 'app-client-profile',
@@ -28,12 +30,17 @@ export class ClientProfileComponent implements OnInit, OnChanges {
   photoName: string;
   invoices: Invoice[];
 
+  paginator: Response;
+
+  showPaginator: boolean = false;
+
   constructor(
     private readonly clientService: ClientService,
     private readonly activateRoute: ActivatedRoute,
     private readonly router: Router,
     private formBuilder: FormBuilder,
     readonly authService: AuthService,
+    private readonly invoiceService: InvoiceService,
   ) {
   }
 
@@ -43,7 +50,6 @@ export class ClientProfileComponent implements OnInit, OnChanges {
       photo: new FormControl('')
     });
   }
-
 
 
   loadClient(): void {
@@ -64,7 +70,7 @@ export class ClientProfileComponent implements OnInit, OnChanges {
   onSubmit() {
     this.load = !this.load;
     this.photoName = null;
-    if(this.photo){
+    if (this.photo) {
       this.clientService.uploadPhoto(this.photo, this.client.id).subscribe(resp => {
         this.load = !this.load;
         this.client.imgUrl = resp.client.imgUrl;
@@ -96,13 +102,16 @@ export class ClientProfileComponent implements OnInit, OnChanges {
   }
 
   clearPhotoName() {
-    if(this.photoName) {
+    if (this.photoName) {
       this.photoName = null
       this.enabled = !this.enabled;
     }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.client) this.invoices = this.client.invoices
+    if (changes['client'].currentValue) {
+      this.invoices = this.client.invoices;
+      this.showPaginator = this.invoices.length > 5;
+    }
   }
 }
