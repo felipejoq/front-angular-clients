@@ -6,19 +6,19 @@ Este proyecto está generado con Angular CLI para la creación de la estructura 
 <details>
 <summary>Ver capturas 🖼</summary>
 
-![screenshot 1](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/1.png?raw=true)
+![screenshot 1](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/1.png?raw=true)
 
-![screenshot 2](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/2.png?raw=true)
+![screenshot 2](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/2.png?raw=true)
 
-![screenshot 3](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/3.png?raw=true)
+![screenshot 3](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/3.png?raw=true)
 
-![screenshot 4](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/4.png?raw=true)
+![screenshot 4](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/4.png?raw=true)
 
-![screenshot 5](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/5.png?raw=true)
+![screenshot 5](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/5.png?raw=true)
 
-![screenshot 6](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/6.png?raw=true)
+![screenshot 6](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/6.png?raw=true)
 
-![screenshot 7](https://github.com/felipejoq/front-angular-clients/blob/main/screenshot/7.png?raw=true)
+![screenshot 7](https://github.com/felipejoq/front-angular-clients/blob/main/screenshots/7.png?raw=true)
 
 </details>
 
