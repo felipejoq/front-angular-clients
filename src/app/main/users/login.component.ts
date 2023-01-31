@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()){
-      MODAL.swalClient(`Info: ${this.authService.user.username} usted ya se encuentra autenticado.`, "Ya está Logeado", typeIcon.INFO);
+      MODAL.swalGeneric(`Info: ${this.authService.user.username} usted ya se encuentra autenticado.`, "Ya está Logeado", typeIcon.INFO);
       this.route.navigate(['/clients']);
     }
 
@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit{
         let user = this.authService.user;
 
         this.route.navigate(['/clients']);
-        MODAL.swalClient("Has iniciado sesión correctamente.", `Bienvenido(a) ${user.username}`, typeIcon.SUCCESS);
+        MODAL.swalGeneric("Has iniciado sesión correctamente.", `Bienvenido(a) ${user.username}`, typeIcon.SUCCESS);
       },
       error => {
         if(error.status == 400) {

@@ -19,6 +19,7 @@ export class ClientsComponent {
   paginator: Response | undefined;
   display: boolean = false;
 
+
   constructor(
     private readonly clientService: ClientService,
     private readonly activateRoute: ActivatedRoute,
@@ -57,7 +58,7 @@ export class ClientsComponent {
               this.router.navigate(['/clients/page', this.paginator.number - 1]);
               this.changePaginator()
             }
-            MODAL.swalClient(`Cliente ${client.name} ${client.lastName} borrado con éxito!`, 'Cliente borrado.', typeIcon.SUCCESS);
+            MODAL.swalGeneric(`Cliente ${client.name} ${client.lastName} borrado con éxito!`, 'Cliente borrado.', typeIcon.SUCCESS);
           });
         }
       });

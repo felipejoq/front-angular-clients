@@ -17,7 +17,7 @@ export enum typeIcon {
 }
 
 export const MODAL = {
-  swalClient: (text: string, title: string, icon: typeIcon) => {
+  swalGeneric: (text: string, title: string, icon: typeIcon) => {
     return Swal
       .fire({
         title: `${title}`,

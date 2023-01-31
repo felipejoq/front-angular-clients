@@ -41,7 +41,7 @@ export class FormComponent {
         let { name, lastName } = resp.client
         // this.router.navigate(['/clients']);
         this.location.back();
-        MODAL.swalClient(`Cliente ${name} ${lastName} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
+        MODAL.swalGeneric(`Cliente ${name} ${lastName} creado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
       });
     console.log(this.client);
   }
@@ -52,7 +52,7 @@ export class FormComponent {
         resp => {
           // this.router.navigate(['/clients'])
           this.location.back();
-          MODAL.swalClient(`Cliente ${resp.client.name} actualizado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
+          MODAL.swalGeneric(`Cliente ${resp.client.name} actualizado con éxito!`, `${resp.message}`, typeIcon.SUCCESS);
         })
   }
 

@@ -37,10 +37,10 @@
         <td>{{ invoice.createAt | date: "EEEE dd, MMMM YYYY" }}</td>
         <td>
           <div class="btn-group">
-            <a title="Edit" class="btn btn-primary btn-sm" aria-current="page">
+            <!--<a title="Edit" class="btn btn-primary btn-sm" aria-current="page">
               <i class="bi bi-pencil-square"></i>
-            </a>
-            <a title="See" class="btn btn-info btn-sm" aria-current="page">
+            </a>-->
+            <a (click)="showInvoiceModal(invoice)" title="See" class="btn btn-info btn-sm" aria-current="page">
               <i class="bi bi-eye-fill text-white"></i>
             </a>
             <a title="Delete" class="btn btn-danger btn-sm" aria-current="page">
@@ -51,6 +51,21 @@
       </tr>
       </tbody>
     </table>
-    <app-pagination-invoices [paginator]="paginator" [client]="client"></app-pagination-invoices>
+    <app-pagination-invoices *ngIf="client" [paginator]="paginator" [client]="client"></app-pagination-invoices>
   </div>
 </div>
+
+<p-dialog
+  [closable]="true"
+  [showHeader]="false"
+  [dismissableMask]="true"
+  [closeOnEscape]="true"
+  [modal]="true"
+  [draggable]="true"
+  contentStyleClass="card"
+  [contentStyle]="{padding: '2rem'}"
+  [autoZIndex]="true"
+  [(visible)]="detailsInvoiceModal"
+  [style]="{width: '90vw', height: '90vh'}">
+  <app-invoice-details *ngIf="invoiceSelected" [invoice]="invoiceSelected"></app-invoice-details>
+</p-dialog>

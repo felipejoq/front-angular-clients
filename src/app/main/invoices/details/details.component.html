@@ -1,0 +1,138 @@
+<div *ngIf="invoice.client" class="d-flex justify-content-center flex-column">
+  <div class="card text-bg-light mx-auto mb-3 w-75">
+    <div class="card-header"><i class="bi bi-info-square-fill"></i> Invoice Details</div>
+    <div class="card-body">
+      <div class="card-body">
+        <div class="row justify-content-around">
+          <div class="profile-image col col-12 col-xl-6 text-center mb-2">
+            <div *ngIf="!invoice.client.imgUrl">
+              <img class="img-fluid rounded-3 border border-1 border-light shadow"
+                   src="./assets/img/img-client-default.webp" alt="">
+            </div>
+
+            <div *ngIf="invoice.client.imgUrl">
+              <img class="img-fluid rounded-3 border border-1 border-light shadow" src="{{ invoice.client.imgUrl }}"
+                   alt="">
+            </div>
+
+          </div>
+          <div class="col col-12 col-xl-6">
+            <ul class="list-group">
+              <li class="list-group-item bg-secondary text-white">
+                <div class="fw-bold ms-2 me-auto">
+                  <i class="bi bi-info-square"></i> Client Info
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Full Name</div>
+                  {{ invoice.client.name }} {{ invoice.client.lastName }}
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Email</div>
+                  {{ invoice.client.email }}
+                </div>
+              </li>
+              <li *ngIf="invoice.client.country" class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Country</div>
+                  {{ invoice.client.country?.name }} ({{ invoice.client.country?.code | getFlag }})
+                </div>
+              </li>
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Create At</div>
+                  {{ invoice.client.createAt | date: "EEEE dd, MMMM YYYY"  }}
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row my-4">
+          <div class="col col-12 col-xl-12">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold text-info-emphasis">Invoice ID: {{invoice.id}}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col col-12 col-xl-4">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Description</div>
+                  {{ invoice.description }}
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col col-12 col-xl-4">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Observation</div>
+                  {{ invoice.observation }}
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="col col-12 col-xl-4">
+            <ul class="list-group">
+              <li class="list-group-item">
+                <div class="ms-2 me-auto">
+                  <div class="fw-bold">Date</div>
+                  {{ invoice.createAt | date: "EEEE dd, MMMM YYYY"  }}
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col col-12 col-xl-12 my-4">
+            <div class="list-group">
+              <div class="list-group-item">
+                <table *ngIf="invoice.items.length > 0" class="table">
+                  <thead>
+                  <tr>
+                    <th scope="col">Nº</th>
+                    <th scope="col">Product</th>
+                    <th class="text-center" scope="col">Price</th>
+                    <th class="text-center" scope="col">Qty.</th>
+                    <th class="text-center" scope="col">Total</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let item of invoice.items; let i = index;">
+                    <th scope="row">{{ i+1 }}</th>
+                    <td>{{ item.product.name }}</td>
+                    <td class="text-center">{{ item.product.price | currency: 'CLP' }}</td>
+                    <td class="text-center">{{ item.cuanty }}</td>
+                    <td class="text-center">{{ item.totalItem | currency: 'CLP' }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="w-100 mt-5">
+                  <div class="h5 text-end d-flex flex-column gap-1">
+                    <p class="fw-bold text-primary">{{ invoice.totalAmountDue | currency: 'CLP' }}</p>
+                    <div class="border-top border-1 border-secondary w-25 align-self-end"></div>
+                    <div class="h6 text-end">Total Invoice</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

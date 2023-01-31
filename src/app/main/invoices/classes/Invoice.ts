@@ -14,7 +14,7 @@ export class Invoice {
   calculateTotalAmountDue = ():number => {
     let totalAmount:number = 0;
     if(this.items) {
-      this.items.forEach(item => totalAmount += item.totalItem());
+      this.items.forEach(item => totalAmount += item.calculateTotalItem());
       return totalAmount;
     }
     return totalAmount;

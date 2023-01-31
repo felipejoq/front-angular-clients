@@ -14,6 +14,7 @@ export class IsAuthorizedHelper {
   }
 
   isAuth(e: any): boolean {
+    console.log(e)
     if (e.status == 401) {
       if(this.authService.isAuthenticated()) {
         this.authService.logout();
@@ -23,7 +24,7 @@ export class IsAuthorizedHelper {
     }
 
     if (e.status == 403) {
-      MODAL.swalClient('Lo sentimos, usted no tiene acceso a esta acción o recurso.', 'Sin autorización.', typeIcon.WARNING);
+      MODAL.swalGeneric('Lo sentimos, usted no tiene acceso a esta acción o recurso.', 'Sin autorización.', typeIcon.WARNING);
       this.router.navigate(['/clients'])
     }
 

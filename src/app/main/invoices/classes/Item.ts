@@ -4,7 +4,8 @@ export class Item {
   id:        number;
   cuanty:    number = 1;
   product:   Product;
-  totalItem? = (): number => {
+  totalItem: number;
+  calculateTotalItem? = (): number => {
     return this.cuanty * this.product.price;
   }
 }

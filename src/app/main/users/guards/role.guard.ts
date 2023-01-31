@@ -28,7 +28,7 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
-    MODAL.swalClient('Lo sentimos, usted no tiene acceso a esta acción o recurso.', 'Sin autorización.', typeIcon.WARNING);
+    MODAL.swalGeneric('Lo sentimos, usted no tiene acceso a esta acción o recurso.', 'Sin autorización.', typeIcon.WARNING);
     this.router.navigate(['/clients'])
 
     return false;

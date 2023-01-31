@@ -34,6 +34,7 @@ import {DialogModule} from "primeng/dialog";
 import {PaginationInvoicesComponent} from "./main/invoices/paginator/pagination-invoices.component";
 import {FormInvoiceComponent} from "./main/invoices/form/form-invoice.component";
 import {ProductService} from "./main/invoices/services/product.service";
+import { DetailsComponent } from './main/invoices/details/details.component';
 
 registerLocaleData(localeEsCl, 'es')
 
@@ -76,7 +77,8 @@ const routes: Routes = [
     LoginComponent,
     InvoicesComponent,
     FormInvoiceComponent,
-    PaginationInvoicesComponent
+    PaginationInvoicesComponent,
+    DetailsComponent
   ],
   imports: [
     BrowserModule,

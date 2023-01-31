@@ -54,19 +54,25 @@
           <p class="my-4 card-text border-bottom border-2 border-secondary border-opacity-25 fw-bold">Create Invoice</p>
 
           <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
+            <label for="description" class="form-label">Description (<span class="text-danger">*</span>)</label>
             <input type="text" class="form-control" id="description" name="description"
-                   [(ngModel)]="invoice.description" required autofocus>
+                   [(ngModel)]="invoice.description" required autofocus #description="ngModel" minlength="10">
+          </div>
+
+          <div id="nameHelp" class="form-text"
+               *ngIf="description.invalid && (description.dirty || description.touched)">
+            <div *ngIf="description.errors?.['required']" class="text-danger">Debe ingresar una descripción.</div>
+            <div *ngIf="description.errors?.['minlength']" class="text-danger">La descripción debe tener mínimo 10 carácteres.</div>
           </div>
 
           <div class="mb-3">
             <label for="observation" class="form-label">Observation</label>
             <input type="text" class="form-control" id="observation" name="observation"
-                   [(ngModel)]="invoice.observation" required>
+                   [(ngModel)]="invoice.observation">
           </div>
 
           <div class="mb-3">
-            <label class="form-label"><i class="bi bi-flag-fill"></i> Search Products</label>
+            <label class="form-label"><i class="bi bi-flag-fill"></i> Search Products (<span class="text-danger">*</span>)</label>
             <div class="field col-12 md:col-4">
               <p-autoComplete
                 name="product"
@@ -83,6 +89,9 @@
                 [required]="true"
               >
               </p-autoComplete>
+            </div>
+            <div *ngIf="noItems" class="form-text text-danger-emphasis">
+              <i class="bi bi-exclamation-diamond-fill"></i> Debe seleccionar al menos un producto.
             </div>
           </div>
 
@@ -102,11 +111,11 @@
               <tr *ngFor="let item of invoice.items; let i = index;">
                 <th scope="row">{{ i+1 }}</th>
                 <td>{{ item.product.name }}</td>
-                <td>{{ item.product.price }}</td>
+                <td>{{ item.product.price | currency: 'CLP' }}</td>
                 <td>
                   <input (change)="modifyQty(item, $event)" class="form-control quanty-form-control" type="number" name="cuanty" id="cuanty" [value]="item.cuanty">
                 </td>
-                <td>{{ item.totalItem() }}</td>
+                <td>{{ item.calculateTotalItem() | currency: 'CLP' }}</td>
                 <td>
                   <div class="btn-group btn-group-sm">
                     <button (click)="deleteItem(item)" class="btn btn-danger btn-sm">
@@ -126,7 +135,15 @@
             </div>
           </div>
 
-          <button type="submit" class="btn btn-primary btn-sm container-fluid" (click)="createInvoice()">Create Invoice</button>
+          <button  *ngIf="invoiceForm.valid && !noItems else elseBlock" type="submit"
+                   class="btn btn-primary container-fluid" [disabled]="!invoiceForm.form.valid" type="submit" class="btn btn-primary btn-sm container-fluid" (click)="createInvoice()">Create Invoice</button>
+
+          <ng-template #elseBlock>
+            <button type="submit" class="btn btn-primary container-fluid"
+                    [disabled]="!invoiceForm.form.valid">
+              <i class="bi bi-pencil-square"></i> Actualizar
+            </button>
+          </ng-template>
 
         </form>
       </div>

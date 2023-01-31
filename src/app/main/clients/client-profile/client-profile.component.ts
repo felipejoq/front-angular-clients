@@ -74,7 +74,7 @@ export class ClientProfileComponent implements OnInit, OnChanges {
       this.clientService.uploadPhoto(this.photo, this.client.id).subscribe(resp => {
         this.load = !this.load;
         this.client.imgUrl = resp.client.imgUrl;
-        MODAL.swalClient(resp.message, 'Foto del cliente actualizada!', typeIcon.SUCCESS);
+        MODAL.swalGeneric(resp.message, 'Foto del cliente actualizada!', typeIcon.SUCCESS);
         this.photoInput.get('photo').setValue("");
         this.enabled = !this.enabled;
       })

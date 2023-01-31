@@ -23,6 +23,9 @@ export class InvoicesComponent implements OnInit, OnChanges {
   @Input() paginator: Response | undefined;
 
   message: string = `See all invoices`;
+  detailsInvoiceModal: boolean = false;
+
+  invoiceSelected: Invoice;
 
   constructor(
     readonly authService: AuthService,
@@ -60,4 +63,8 @@ export class InvoicesComponent implements OnInit, OnChanges {
   }
 
 
+  showInvoiceModal(invoice: Invoice) {
+    this.detailsInvoiceModal = !this.detailsInvoiceModal;
+    this.invoiceSelected = invoice;
+  }
 }

@@ -18,7 +18,7 @@ export class HeaderComponent {
 
   logout() {
     this.authService.logout();
-    MODAL.swalClient('¡Hasta la próxima, nos vemos!', 'Todo bien.', typeIcon.SUCCESS);
+    MODAL.swalGeneric('¡Hasta la próxima, nos vemos!', 'Todo bien.', typeIcon.SUCCESS);
     this.router.navigate(['/login'])
   }
 }
